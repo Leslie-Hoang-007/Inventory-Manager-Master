@@ -20,6 +20,16 @@ namespace Inventory_Manager.Data
             modelBuilder.Entity<Orders>().HasData(
                 new Orders
                 {
+                    Id = 4,
+                    Date = DateTime.UtcNow.AddDays(-10),
+                    Name = "Apple Ipad Pro 11",
+                    Quantity = 10,
+                    Paid = true,
+                    Status = "OutForDelivery",
+                    TotalPrice = 8000,
+                },
+                new Orders
+                {
                     Id = 3,
                     Date = DateTime.UtcNow.AddDays(-50),
                     Name = "Apple Watch Series 4",
@@ -77,7 +87,7 @@ namespace Inventory_Manager.Data
                 Name = "Google Pixel Phone",
                 Quantity = 23,
                 Paid = true,
-                Status = "OutForDelivery",
+                Status = "Arrived",
                 TotalPrice = 9600,
             }
             );
