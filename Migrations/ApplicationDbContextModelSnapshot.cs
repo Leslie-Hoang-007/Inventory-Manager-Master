@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Inventory_Manager.Data.Migrations
+namespace Inventory_Manager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace Inventory_Manager.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Inventory_Management.Models.Inventory", b =>
+            modelBuilder.Entity("Inventory_Manager.Models.Orders", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,13 +54,13 @@ namespace Inventory_Manager.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Inventory");
+                    b.ToTable("Orders");
 
                     b.HasData(
                         new
                         {
                             Id = 3,
-                            Date = new DateTime(2023, 10, 31, 20, 48, 19, 821, DateTimeKind.Utc).AddTicks(3815),
+                            Date = new DateTime(2023, 11, 2, 21, 45, 3, 759, DateTimeKind.Utc).AddTicks(1475),
                             Name = "Apple Watch Series 4",
                             Paid = true,
                             Quantity = 10,
@@ -70,7 +70,7 @@ namespace Inventory_Manager.Data.Migrations
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2023, 9, 11, 20, 48, 19, 821, DateTimeKind.Utc).AddTicks(3829),
+                            Date = new DateTime(2023, 9, 13, 21, 45, 3, 759, DateTimeKind.Utc).AddTicks(1484),
                             Name = "Microsoft Surface",
                             Paid = true,
                             Quantity = 5,
@@ -80,7 +80,7 @@ namespace Inventory_Manager.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2023, 7, 23, 20, 48, 19, 821, DateTimeKind.Utc).AddTicks(3831),
+                            Date = new DateTime(2023, 7, 25, 21, 45, 3, 759, DateTimeKind.Utc).AddTicks(1485),
                             Name = "Google Pixel Phone",
                             Paid = true,
                             Quantity = 23,
@@ -121,6 +121,38 @@ namespace Inventory_Manager.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2023, 11, 2, 21, 45, 3, 759, DateTimeKind.Utc).AddTicks(1593),
+                            Name = "Apple Watch Series 4",
+                            Paid = true,
+                            Quantity = 10,
+                            Status = "Arrived",
+                            TotalPrice = 1600
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2023, 9, 13, 21, 45, 3, 759, DateTimeKind.Utc).AddTicks(1595),
+                            Name = "Microsoft Surface",
+                            Paid = true,
+                            Quantity = 5,
+                            Status = "Arrived",
+                            TotalPrice = 2600
+                        },
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2023, 7, 25, 21, 45, 3, 759, DateTimeKind.Utc).AddTicks(1596),
+                            Name = "Google Pixel Phone",
+                            Paid = true,
+                            Quantity = 23,
+                            Status = "OutForDelivery",
+                            TotalPrice = 9600
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

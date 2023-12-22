@@ -23,9 +23,9 @@
                         <li class="nav-item @(ViewContext?.RouteData?.Values?["Controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item @(ViewContext?.RouteData?.Values?["Controller"]?.ToString() == "Inventory" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Inventory" asp-action="Index">Orders</a>
-                        </li>
+                            <li class="nav-item @(ViewContext?.RouteData?.Values?["Controller"]?.ToString() == "Orders" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
+                            </li>
                         <li class="nav-item @(ViewContext?.RouteData?.Values?["Controller"]?.ToString() == "Products" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products Inventory</a>
                         </li>

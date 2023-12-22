@@ -1,10 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace Inventory_Management.Models
+namespace Inventory_Manager.Models
 {
-    public class Inventory
-
+    public class Orders
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -25,6 +24,5 @@ namespace Inventory_Management.Models
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "TotalPrice must be greater than 0")]
         public int TotalPrice { get; set; }
-
     }
 }

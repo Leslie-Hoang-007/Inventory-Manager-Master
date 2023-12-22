@@ -5,114 +5,109 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Inventory_Management.Models;
 using Inventory_Manager.Data;
 using Inventory_Manager.Models;
 
 namespace Inventory_Manager.Controllers
 {
-    public class InventoryController : Controller
+    public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public InventoryController(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Inventory
+        // GET: Orders
         public async Task<IActionResult> Index()
         {
-            if (_context.Inventory == null)
+            if (_context.Orders == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Inventory' is null.");
             }
 
-            var inventories = await _context.Inventory.ToListAsync();
-
-            if (inventories != null)
+            var orders = await _context.Orders.ToListAsync();
+            if(orders != null)
             {
-                // Calculate total quantity and total value
-                var totalQuantity = inventories.Sum(item => item.Quantity);
-                var totalValue = inventories.Sum(item => item.TotalPrice);
+                var totalQuantity = orders.Sum(item => item.Quantity);
+                var totalValue = orders.Sum(item => item.TotalPrice);
 
                 ViewBag.TotalQuantity = totalQuantity;
                 ViewBag.TotalValue = totalValue.ToString("N2");
             }
-
-            return View(inventories);
+            return View(orders);
         }
 
-
-        // GET: Inventory/Details/5
+        // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Inventory == null)
+            if (id == null || _context.Orders == null)
             {
                 return NotFound();
             }
 
-            var inventory = await _context.Inventory
+            var orders = await _context.Orders
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (inventory == null)
+            if (orders == null)
             {
                 return NotFound();
             }
 
-            return View(inventory);
+            return View(orders);
         }
 
-        // GET: Inventory/Create
+        // GET: Orders/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Inventory/Create
+        // POST: Orders/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Date,Name,Quantity,Paid,Status,TotalPrice")] Inventory inventory)
+        public async Task<IActionResult> Create([Bind("Id,Date,Name,Quantity,Paid,Status,TotalPrice")] Orders orders)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(inventory);
+                _context.Add(orders);
                 await _context.SaveChangesAsync();
-                // check if arrived and add
-                if (inventory.Status == "Arrived")
+                // check if arrived order added
+                if (orders.Status == "Arrived")
                 {
-                    UpdateInventory(inventory);
+                    UpdateInventory(orders);
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(inventory);
+            return View(orders);
         }
 
-        // GET: Inventory/Edit/5
+        // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Inventory == null)
+            if (id == null || _context.Orders == null)
             {
                 return NotFound();
             }
 
-            var inventory = await _context.Inventory.FindAsync(id);
-            if (inventory == null)
+            var orders = await _context.Orders.FindAsync(id);
+            if (orders == null)
             {
                 return NotFound();
             }
-            return View(inventory);
+            return View(orders);
         }
 
-        // POST: Inventory/Edit/5
+        // POST: Orders/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,Name,Quantity,Paid,Status,TotalPrice")] Inventory inventory)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,Name,Quantity,Paid,Status,TotalPrice")] Orders orders)
         {
-            if (id != inventory.Id)
+            if (id != orders.Id)
             {
                 return NotFound();
             }
@@ -121,18 +116,18 @@ namespace Inventory_Manager.Controllers
             {
                 try
                 {
-                    _context.Update(inventory);
+                    _context.Update(orders);
                     await _context.SaveChangesAsync();
 
-                    if (inventory.Status == "Arrived")
+                    if(orders.Status == "Arrived")
                     {
-                        UpdateInventory(inventory);
+                        UpdateInventory(orders);
                     }
 
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!InventoryExists(inventory.Id))
+                    if (!OrdersExists(orders.Id))
                     {
                         return NotFound();
                     }
@@ -143,81 +138,80 @@ namespace Inventory_Manager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(inventory);
+            return View(orders);
         }
 
-        // GET: Inventory/Delete/5
+        // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Inventory == null)
+            if (id == null || _context.Orders == null)
             {
                 return NotFound();
             }
 
-            var inventory = await _context.Inventory
+            var orders = await _context.Orders
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (inventory == null)
+            if (orders == null)
             {
                 return NotFound();
             }
 
-            return View(inventory);
+            return View(orders);
         }
 
-        // POST: Inventory/Delete/5
+        // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Inventory == null)
+            if (_context.Orders == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Inventory'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Orders'  is null.");
             }
-            var inventory = await _context.Inventory.FindAsync(id);
-            if (inventory != null)
+            var orders = await _context.Orders.FindAsync(id);
+            if (orders != null)
             {
-                _context.Inventory.Remove(inventory);
+                _context.Orders.Remove(orders);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool InventoryExists(int id)
+        private bool OrdersExists(int id)
         {
-          return (_context.Inventory?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Orders?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-
         // Helper method to update the inventory when the status is "Arrived"
-        private void UpdateInventory(Inventory inventory)
+        private void UpdateInventory(Orders order)
         {
             if (_context?.Products != null)
             {
                 // Extract the Name property before using it in LINQ
-                string inventoryName = inventory.Name;
+                string orderName = order.Name;
 
                 // Case-insensitive comparison
-                var inventoryItem = _context.Products.FirstOrDefault(p =>
-                    string.Equals(p.Name, inventoryName));
+                var orderItem = _context.Products.FirstOrDefault(p =>
+                    string.Equals(p.Name, orderName));
 
-                if (inventoryItem != null)
+                if (orderItem != null)
                 {
                     // Update existing item
-                    inventoryItem.Quantity += inventory.Quantity;
-                    _context.Update(inventoryItem);
+                    orderItem.Quantity += order.Quantity;
+                    _context.Update(orderItem);
                 }
                 else
                 {
                     // Create a new item if it doesn't exist
                     var newInventoryItem = new Products
                     {
-                        Name = inventoryName,
-                        Quantity = inventory.Quantity,
-                        Paid = inventory.Paid,
-                        Status = inventory.Status,
-                        TotalPrice = inventory.TotalPrice,
+                        Name = orderName,
+                        Quantity = order.Quantity,
+                        Paid = order.Paid,
+                        Status = order.Status,
+                        TotalPrice = order.TotalPrice,
                         Date = DateTime.Now
-                };
+                    };
 
                     _context.Products.Add(newInventoryItem);
                 }
