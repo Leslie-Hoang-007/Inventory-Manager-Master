@@ -50,6 +50,31 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+// to prevent -X-Content-Type-Options Missing
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx => ctx.Context.Response.Headers.Add("X-Content-Type-Options", "nosniff")
+});
+
+app.Use(async (context, next) =>
+{
+    // to prevent Anti-clickjacking Header (aka.X-Frame-Options Header Not Set)
+    context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+    // to prevent -XSS Protection
+    context.Response.Headers.Add("X-Xss-Protection", "1");
+    // to prevent X-Content-Type-Options MissingX
+    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+    await next();
+});
+
+// to prevent cookie http only 
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
+    Secure = CookieSecurePolicy.Always
+});
+
+
 app.UseRouting();
 
 app.UseAuthentication();

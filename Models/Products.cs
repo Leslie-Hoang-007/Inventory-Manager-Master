@@ -20,6 +20,8 @@ namespace Inventory_Manager.Models
         public Boolean Paid { get; set; }
 
         [Required]
+        [StringLength(50)]
+
         public String Status { get; set; }
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "TotalPrice must be greater than 0")]
