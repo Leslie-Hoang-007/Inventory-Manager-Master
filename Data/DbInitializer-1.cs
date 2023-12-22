@@ -11,6 +11,7 @@ namespace Inventory_Manager.Data
 {
     public static class DbInitializer
     {
+        public static AppSecrets appSecrets {  get; set; }
         public static async Task<int> SeedUsersAndRoles(IServiceProvider serviceProvider)
         {
             // create the database if it doesn't exist
@@ -67,7 +68,7 @@ namespace Inventory_Manager.Data
                 LastName = "Manager",
                 EmailConfirmed = true
             };
-            var result = await userManager.CreateAsync(adminUser, "Password!1");
+            var result = await userManager.CreateAsync(adminUser, appSecrets.ManagerPassword);
             if (!result.Succeeded)
                 return 1;  // should log an error message here
 
@@ -85,7 +86,7 @@ namespace Inventory_Manager.Data
                 LastName = "Employee",
                 EmailConfirmed = true
             };
-            result = await userManager.CreateAsync(memberUser, "Password!1");
+            result = await userManager.CreateAsync(memberUser, appSecrets.EmployeePassword);
             if (!result.Succeeded)
                 return 3;  // should log an error message here
 

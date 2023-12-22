@@ -15,10 +15,22 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+//Initialize app secrets
+var configuration = app.Services.GetService<IConfiguration>();
+var hosting = app.Services.GetService<IWebHostEnvironment>();
+
+if (hosting.IsDevelopment())
+{
+    var secrets = configuration.GetSection("Secrets").Get<AppSecrets>();
+    DbInitializer.appSecrets = secrets;
+}
+
+// see user data
 using (var scope = app.Services.CreateScope())
 {
     DbInitializer.SeedUsersAndRoles(scope.ServiceProvider).Wait();
