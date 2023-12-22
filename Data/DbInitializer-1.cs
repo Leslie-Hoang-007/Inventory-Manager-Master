@@ -62,8 +62,8 @@ namespace Inventory_Manager.Data
             // Create Admin User
             var adminUser = new ApplicationUser
             {
-                UserName = "manager@gmail.ca",
-                Email = "manager@gmail.ca",
+                UserName = "manager@gmail.com",
+                Email = "manager@gmail.com",
                 FirstName = "The",
                 LastName = "Manager",
                 EmailConfirmed = true
@@ -80,8 +80,8 @@ namespace Inventory_Manager.Data
             // Create Member User
             var memberUser = new ApplicationUser
             {
-                UserName = "employee@gmail.ca",
-                Email = "employee@gmail.ca",
+                UserName = "employee@gmail.com",
+                Email = "employee@gmail.com",
                 FirstName = "The",
                 LastName = "Employee",
                 EmailConfirmed = true
