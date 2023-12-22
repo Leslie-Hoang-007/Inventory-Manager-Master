@@ -1,0 +1,67 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+    .active a {
+        background-color: #3498db;
+        border-radius: .25rem;
+        font-weight: bold;
+        color: white !important;
+    }
+
+
+
+.banner {
+    position: relative;
+    height: 400px; 
+    background: url('https://img.freepik.com/premium-vector/industry-factory-concept-conveyor-automatic-production-robotic-assembly-illustration_7081-1594.jpg') center/cover;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+    .banner h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+        background-color: rgba(0,0,0,.25);
+        padding: 1rem 2rem;
+        border-radius: 1rem;
+    }
+
+.button-container {
+    display: flex;
+    gap: 20px;
+}
+
+.button-container a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #3498db;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+}
+
+.button-container a:hover {
+    background-color: #2980b9;
+}

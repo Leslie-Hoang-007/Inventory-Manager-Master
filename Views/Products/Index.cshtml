@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Inventory_Manager.Models.Products>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Products Inventory</h1>
+<div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+    <div style="border: 1px solid #ddd; padding: 10px; padding-top:20px; width: 23%; text-align: center; background-color: #4CAF50; color: white; border-radius: 10px;">
+        <h3>Profit</h3>
+        <p style="font-size: 24px; font-weight: bold;">@ViewBag.Profit</p>
+    </div>
+    <div style="border: 1px solid #ddd; padding: 10px; padding-top:20px; width: 23%; text-align: center; background-color: #E74C3C; color: white; border-radius: 10px;">
+        <h3>Total Sale Price</h3>
+        <p style="font-size: 24px; font-weight: bold;">@ViewBag.TotalSale</p>
+    </div>
+    <div style="border: 1px solid #ddd; padding: 10px; padding-top:20px; width: 23%; text-align: center; background-color: #FFA500; color: white; border-radius: 10px;">
+        <h3>Total Cost</h3>
+        <p style="font-size: 24px; font-weight: bold;">@ViewBag.TotalCost</p>
+    </div>
+    <div style="border: 1px solid #ddd; padding: 10px; padding-top:20px; width: 23%; text-align: center; background-color: teal; color: white; border-radius: 10px;">
+        <h3>Total Quantity</h3>
+        <p style="font-size: 24px; font-weight: bold;">@ViewBag.TotalQuantity</p>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Date Restocked
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                Cost
+            </th>
+            <th>
+                Sale Price (Markup 33%)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderBy(i => i.Name))
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @String.Format("{0:N2}", item.TotalPrice)
+            </td>
+            <td>
+                @String.Format("{0:N2}", item.TotalPrice * 1.33) <!-- Calculate Sale Price with 33% markup -->
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

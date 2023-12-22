@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    bool isLoggedIn = User.Identity.IsAuthenticated;
+}
+
+<div class="banner">
+    <h1>Inventory Manager</h1>
+    <div class="button-container">
+        @if (!isLoggedIn)
+        {
+            <a href="/Identity/Account/Login">Login</a>
+            <a href="/Identity/Account/Register">Register</a>
+        }
+
+        <a href="/Inventory">Orders</a>
+        <a href="/Products">Products</a>
+    </div>
+</div>
