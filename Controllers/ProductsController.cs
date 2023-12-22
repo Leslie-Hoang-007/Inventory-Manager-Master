@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Inventory_Manager.Data;
 using Inventory_Manager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Inventory_Manager.Controllers
 {
@@ -67,6 +68,7 @@ namespace Inventory_Manager.Controllers
 
             return View(products);
         }
+   
 
         // GET: Products/Create
         public IActionResult Create()
@@ -90,6 +92,7 @@ namespace Inventory_Manager.Controllers
             return View(products);
         }
 
+        [Authorize]
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -106,6 +109,7 @@ namespace Inventory_Manager.Controllers
             return View(products);
         }
 
+        [Authorize]
         // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -148,6 +152,7 @@ namespace Inventory_Manager.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Products == null)
@@ -168,6 +173,7 @@ namespace Inventory_Manager.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Products == null)

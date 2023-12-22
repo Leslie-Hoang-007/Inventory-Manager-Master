@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Inventory_Manager.Data;
 using Inventory_Manager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Inventory_Manager.Controllers
 {
+    [Authorize]
+
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -57,6 +60,8 @@ namespace Inventory_Manager.Controllers
             return View(orders);
         }
 
+        [Authorize(Roles = "Manager")]
+
         // GET: Orders/Create
         public IActionResult Create()
         {
@@ -68,6 +73,8 @@ namespace Inventory_Manager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
+
         public async Task<IActionResult> Create([Bind("Id,Date,Name,Quantity,Paid,Status,TotalPrice")] Orders orders)
         {
             if (ModelState.IsValid)
@@ -142,6 +149,8 @@ namespace Inventory_Manager.Controllers
         }
 
         // GET: Orders/Delete/5
+        [Authorize(Roles = "Manager")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Orders == null)
@@ -162,6 +171,8 @@ namespace Inventory_Manager.Controllers
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Orders == null)
