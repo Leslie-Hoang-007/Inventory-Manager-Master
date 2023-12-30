@@ -68,7 +68,9 @@ namespace Inventory_Manager.Data
                 LastName = "Manager",
                 EmailConfirmed = true
             };
-            var result = await userManager.CreateAsync(adminUser, appSecrets.ManagerPassword);
+            //var result = await userManager.CreateAsync(adminUser, appSecrets.ManagerPassword);
+
+            var result = await userManager.CreateAsync(adminUser, "Password!1");
             if (!result.Succeeded)
                 return 1;  // should log an error message here
 
@@ -86,7 +88,8 @@ namespace Inventory_Manager.Data
                 LastName = "Employee",
                 EmailConfirmed = true
             };
-            result = await userManager.CreateAsync(memberUser, appSecrets.EmployeePassword);
+            //result = await userManager.CreateAsync(memberUser, appSecrets.EmployeePassword);
+            result = await userManager.CreateAsync(memberUser, "Password!1");
             if (!result.Succeeded)
                 return 3;  // should log an error message here
 

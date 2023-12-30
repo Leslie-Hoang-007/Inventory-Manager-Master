@@ -24,11 +24,11 @@ var app = builder.Build();
 var configuration = app.Services.GetService<IConfiguration>();
 var hosting = app.Services.GetService<IWebHostEnvironment>();
 
-if (hosting.IsDevelopment())
-{
-    var secrets = configuration.GetSection("Secrets").Get<AppSecrets>();
-    DbInitializer.appSecrets = secrets;
-}
+//if (hosting.IsDevelopment())
+//{
+//    var secrets = configuration.GetSection("Secrets").Get<AppSecrets>();
+//    DbInitializer.appSecrets = secrets;
+//}
 
 // see user data
 using (var scope = app.Services.CreateScope())
