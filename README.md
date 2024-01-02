@@ -1,5 +1,5 @@
 # Open-Dialogue
-A comprehensive tool designed to efficiently handles orders and monitor inventory within a business. 
+A comprehensive tool designed to efficiently handles orders and monitor inventory within a business. It coordinates business operation by monitoring order status and updating inventory when orders have arrived. 
 
 # What I learned
 - Utilizing MVC scaffolding to organize code
