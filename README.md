@@ -11,5 +11,5 @@ Increased security by reducing security alerts by aproximately 21% through Anti-
 
 ![Zap report comparing before and after security measures](https://imgur.com/RLdsz4D.png)
 
-# How to user
-Visit [Link](https://inventorymanager000256811.azurewebsites.net/Orders)Website login with Email: manager@gmail.com Password: Password!1
+# How to use
+Visit [Link](https://inventorymanager000256811.azurewebsites.net/Orders) login with Email: manager@gmail.com Password: Password!1
